@@ -29,18 +29,34 @@ from selenium.webdriver import ActionChains
 
 # 設置 Browser 環境
 @pytest.fixture
-def driver():
-    options = Options()
-    options.add_argument("--headless=new")         # CI 常用 headless
-    options.add_argument("--disable-dev-shm-usage") # 避免 /dev/shm 空間不足
-    options.add_argument("--no-sandbox")            # CI 需要
-    options.add_argument("--window-size=1920,1080") # 給足夠視窗大小
+def driver(scope="function"):
 
-    selenium_url = os.getenv("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub")
+    # 設置遠端Selenium Server環境
     driver = webdriver.Remote(
-        command_executor=selenium_url,
-        options=options
+    command_executor="http://localhost:4444/wd/hub",
+    options=webdriver.ChromeOptions()
     )
+    
+    # 設置 Chrome 環境
+    # options = ChromeOptions()
+    # service = ChromeService("/usr/local/bin/chromedriver")
+    # driver = webdriver.Chrome(service=service, options=options)
+
+    # 設置 Firefox 環境
+    # options = FirefoxOptions()
+    # options.binary_location = "/Applications/Firefox.app/Contents/MacOS/firefox"
+    # service = FirefoxService("/usr/local/bin/geckodriver")
+    # driver = webdriver.Firefox(service=service, options=options)
+
+    # 設置 Safari 環境
+    # driver = webdriver.Safari()
+    # driver.set_window_rect(0, 0, 1200, 800)
+
+    # 無頭測試
+    # options.add_argument("--headless")
+    # options.add_argument("--disable-gpu")
+    # options.add_argument("--window-size=1920,1080")
+
     yield driver
     driver.quit()
 
@@ -56,7 +72,7 @@ def wait_for_element_clickable(driver, locator, timeout=10, screenshot_name="scr
 
 # 設置截圖路徑/名稱
 def capture_screenshot(driver, filename="screenshot.png"):
-    directory = 'CICD/screenshots'
+    directory = 'screenshots'
     if not os.path.exists(directory):
         os.makedirs(directory)
     timestamp = time.strftime("%Y%m%d-%H%M%S")
@@ -293,11 +309,11 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                 time.sleep(0.5)
 
             # 上傳文件
-            upload_file('產品製程圖', 'CICD/assets/dog.jpg')
-            upload_file('工廠登記核准相關文件', 'CICD/assets/dog.jpg')
-            upload_file('工廠平面配置圖', 'CICD/assets/dog.jpg')
-            upload_file('生產設備 清潔/消毒 之作業 方式/程序(含清潔劑、消毒劑)', 'CICD/assets/dog.jpg')
-            upload_file('其它(檔名請清楚描述檔案用途)', 'CICD/assets/dog.jpg')
+            upload_file('產品製程圖', 'assets/dog.jpg')
+            upload_file('工廠登記核准相關文件', 'assets/dog.jpg')
+            upload_file('工廠平面配置圖', 'assets/dog.jpg')
+            upload_file('生產設備 清潔/消毒 之作業 方式/程序(含清潔劑、消毒劑)', 'assets/dog.jpg')
+            upload_file('其它(檔名請清楚描述檔案用途)', 'assets/dog.jpg')
 
             allure.attach(driver.get_screenshot_as_png(), name="截圖", attachment_type=allure.attachment_type.PNG)
 
@@ -395,7 +411,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             # upload_input = WebDriverWait(driver, 10).until(
             #     EC.presence_of_element_located((By.XPATH, "//input[@id='file' and @type='file']"))
             # )
-            # upload_input.send_keys('CICD/assets/dog.jpg')
+            # upload_input.send_keys('assets/dog.jpg')
             # 新增按鈕
             add_button = wait_for_element_clickable(driver, (By.XPATH, "//button[@aria-label='新增']"))
             assert add_button is not None, "未找到新增"
@@ -465,7 +481,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//div[contains(@class,'input_container')]/input[@type='file' and contains(@accept,'.jpg')]"
                 ))
             )
-            upload_input.send_keys('CICD/assets/dog.jpg')
+            upload_input.send_keys('assets/dog.jpg')
             allure.attach(driver.get_screenshot_as_png(), name="截圖", attachment_type=allure.attachment_type.PNG)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -578,7 +594,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -675,7 +691,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -772,7 +788,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -868,7 +884,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -965,7 +981,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1061,7 +1077,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1158,7 +1174,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1255,7 +1271,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1319,7 +1335,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             # upload_input = WebDriverWait(driver, 10).until(
             #     EC.presence_of_element_located((By.XPATH, "//input[@id='file' and @type='file']"))
             # )
-            # upload_input.send_keys('CICD/assets/dog.jpg')
+            # upload_input.send_keys('assets/dog.jpg')
             # 新增按鈕
             add_button = wait_for_element_clickable(driver, (By.XPATH, "//button[@aria-label='新增']"))
             assert add_button is not None, "未找到add_button"
@@ -1388,7 +1404,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//div[contains(@class,'input_container')]/input[@type='file' and contains(@accept,'.jpg')]"
                 ))
             )
-            upload_input.send_keys('CICD/assets/dog.jpg')
+            upload_input.send_keys('assets/dog.jpg')
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
             assert alert_check is not None, "未找到alert_check"
@@ -1500,7 +1516,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1597,7 +1613,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1774,7 +1790,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
                     "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
                 ))
             )
-            upload_input.send_keys("CICD/assets/dog.jpg")
+            upload_input.send_keys("assets/dog.jpg")
             time.sleep(0.5)
             # 彈窗確定
             alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1852,7 +1868,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
         upload_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'input[type="file"]'))
         )
-        upload_input.send_keys("CICD/assets/dog.jpg")
+        upload_input.send_keys("assets/dog.jpg")
         time.sleep(0.5)
         # 彈窗確定
         alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1865,7 +1881,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
         upload_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'input[type="file"]'))
         )
-        upload_input.send_keys("CICD/assets/dog.jpg")
+        upload_input.send_keys("assets/dog.jpg")
         time.sleep(0.5)
         # 彈窗確定
         alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1878,7 +1894,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
         upload_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'input[type="file"]'))
         )
-        upload_input.send_keys("CICD/assets/dog.jpg")
+        upload_input.send_keys("assets/dog.jpg")
         time.sleep(0.5)
         # 彈窗確定
         alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
@@ -1928,7 +1944,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
         upload_input = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "paidFile"))
         )
-        upload_input.send_keys("CICD/assets/dog.jpg")
+        upload_input.send_keys("assets/dog.jpg")
         # 送出申請
         send_application = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'送出申請')]"))
         assert send_application is not None, "未找到send_application"
