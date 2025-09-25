@@ -31,9 +31,10 @@ from selenium.webdriver import ActionChains
 @pytest.fixture
 def driver():
     options = Options()
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--headless")  # CI 常用 headless
+    options.add_argument("--headless=new")         # CI 常用 headless
+    options.add_argument("--disable-dev-shm-usage") # 避免 /dev/shm 空間不足
+    options.add_argument("--no-sandbox")            # CI 需要
+    options.add_argument("--window-size=1920,1080") # 給足夠視窗大小
 
     selenium_url = os.getenv("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub")
     driver = webdriver.Remote(
