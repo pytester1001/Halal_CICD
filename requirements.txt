@@ -1,3 +1,4 @@
 # 安裝CICD測試所需的套件
 selenium==4.19.0
 pytest
+allure-pytest
