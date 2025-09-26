@@ -29,9 +29,9 @@ jobs:
       - name: Install Chromium and chromedriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y chromium chromium-driver fonts-liberation \
+          sudo apt-get install -y chromium-browser chromium-driver fonts-liberation \
               libnss3 libxss1 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libgbm-dev libasound2-data
-
+      
       - name: Run Pytest
         run: |
           pytest test_cicd.py -v

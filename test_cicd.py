@@ -35,12 +35,12 @@ def driver():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    options.add_argument("--headless=new")  # CI headless 模式
+    options.add_argument("--headless=new")
 
-    # 指定系統 Chromium binary
-    options.binary_location = "/usr/bin/chromium"
+    # Ubuntu Actions runner 的 Chromium binary 路徑
+    options.binary_location = "/usr/bin/chromium-browser"
 
-    # 使用系統安裝的 chromedriver
+    # 系統 chromedriver
     driver = webdriver.Chrome(service=ChromeService("/usr/bin/chromedriver"), options=options)
 
     yield driver
