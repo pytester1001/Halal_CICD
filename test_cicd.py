@@ -11,6 +11,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import pytest , time , os , random , allure , re
 from selenium.webdriver import ActionChains
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 # 清真Halal
@@ -35,9 +36,10 @@ def driver():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
+    options.add_argument("--headless=new")  # 直接 headless，不需要 xvfb
 
-    # 使用系統的 chromedriver
-    driver = webdriver.Chrome(service=ChromeService(), options=options)
+    # 使用 webdriver-manager 自動下載對應版本的 chromedriver
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
     yield driver
     driver.quit()
