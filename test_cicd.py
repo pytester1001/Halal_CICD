@@ -11,7 +11,6 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import pytest , time , os , random , allure , re
 from selenium.webdriver import ActionChains
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 # 清真Halal
@@ -32,17 +31,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 @pytest.fixture(scope="function")
 def driver():
     options = webdriver.ChromeOptions()
-    # 不要加 headless，因為我們 workflow 用 xvfb 模擬 GUI
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
 
-    # 如果你 repo 有安裝 webdriver-manager，可以這樣：
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
-
-    # 如果你不想用 webdriver-manager，而是靠系統安裝的 chromedriver，就用這樣：
-    # driver = webdriver.Chrome(options=options)
+    # 使用系統的 chromedriver
+    driver = webdriver.Chrome(service=ChromeService(), options=options)
 
     yield driver
     driver.quit()
