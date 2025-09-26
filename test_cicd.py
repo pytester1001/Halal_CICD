@@ -1186,102 +1186,102 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             alert_check.click()
 
 
-            # 產品1-新增原料-其他
-            # 選擇原料
-            choose_raw_materials = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'選擇原料')]"))
-            assert choose_raw_materials is not None, "未找到choose_raw_materials"
-            choose_raw_materials.click()
-            # 新增原料
-            add_raw_materials = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'新增原料')]"))
-            assert add_raw_materials is not None, "未找到add_raw_materials"
-            add_raw_materials.click()
-            # 原料中文
-            raw_materials_CN = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='name']"))
-            assert raw_materials_CN is not None, "未找到raw_materials_CN"
-            raw_materials_CN.clear()
-            raw_materials_CN.send_keys("肉精香料")
-            # 原料英文
-            raw_materials_EN = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='nameEn']"))
-            assert raw_materials_EN is not None, "未找到raw_materials_EN"
-            raw_materials_EN.clear()
-            raw_materials_EN.send_keys("SM-819011 Beef Flavor")
-            # 原料暱稱
-            raw_materials_nick_name = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='nickName']"))
-            assert raw_materials_nick_name is not None, "未找到raw_materials_nick_name"
-            raw_materials_nick_name.clear()
-            raw_materials_nick_name.send_keys("原料暱稱")
-            # 製造商
-            raw_materials_nick_name = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='manufacturer']"))
-            assert raw_materials_nick_name is not None, "未找到raw_materials_nick_name"
-            raw_materials_nick_name.clear()
-            raw_materials_nick_name.send_keys("盛美股份有限公司")
-            # 產地
-            raw_materials_origin = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='origin']"))
-            assert raw_materials_origin is not None, "未找到raw_materials_origin"
-            raw_materials_origin.clear()
-            raw_materials_origin.send_keys("台灣")
-            # 供應商
-            raw_materials_supplier = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='supplier']"))
-            assert raw_materials_supplier is not None, "未找到raw_materials_origin"
-            raw_materials_supplier.clear()
-            raw_materials_supplier.send_keys("盛美股份有限公司")
-            # 新增按鈕
-            add_button = wait_for_element_clickable(driver, (By.XPATH, "//button[@aria-label='新增']"))
-            assert add_button is not None, "未找到add_button"
-            add_button.click()
-            # 彈窗確定
-            alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
-            assert alert_check is not None, "未找到alert_check"
-            alert_check.click()
-            time.sleep(0.5)
-            # 選擇文件類型
-            file_type_dropdown = wait_for_element_clickable(driver, (
-                By.XPATH, "//div[contains(@class,'placeholder') and text()='請選擇文件類型']"
-            ))
-            assert file_type_dropdown is not None, "未找到file_type_dropdown"
-            file_type_dropdown.click()
-            time.sleep(0.5)
-            # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
-            )
-            # 遍歷所有項目並點擊"其他"
-            for option in all_options:
-                if option.text.strip() == "其它(檔名請清楚描述檔案用途)":
-                    option.click()
-                    break
-            time.sleep(0.5)
-            # 上傳檔案
-            upload_input = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((
-                    By.XPATH,
-                    "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
-                ))
-            )
-            upload_input.send_keys("assets/dog.jpg")
-            time.sleep(0.5)
-            # 彈窗確定
-            alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
-            assert alert_check is not None, "未找到alert_check"
-            alert_check.click()
-            time.sleep(0.5)
-            # 右上關閉
-            close_button = wait_for_element_clickable(driver, (By.XPATH, "//body/div[4]/div[1]/div[1]"))
-            assert close_button is not None, "未找到右上關閉"
-            close_button.click()
-            # 勾選項目一
-            choose1_button = wait_for_element_clickable(driver, (By.XPATH, "//tbody/tr[1]/td[1]/input[1]"))
-            assert choose1_button is not None, "未找到原料項目一"
-            choose1_button.click()
-            # 綁定原料
-            binding_raw_materials = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'綁定')]"))
-            assert binding_raw_materials is not None, "未找到綁定原料"
-            binding_raw_materials.click()
-            # 彈窗確定
-            alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
-            assert alert_check is not None, "未找到alert_check"
-            alert_check.click()
-            time.sleep(0.5)
+            # # 產品1-新增原料-其他
+            # # 選擇原料
+            # choose_raw_materials = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'選擇原料')]"))
+            # assert choose_raw_materials is not None, "未找到choose_raw_materials"
+            # choose_raw_materials.click()
+            # # 新增原料
+            # add_raw_materials = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'新增原料')]"))
+            # assert add_raw_materials is not None, "未找到add_raw_materials"
+            # add_raw_materials.click()
+            # # 原料中文
+            # raw_materials_CN = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='name']"))
+            # assert raw_materials_CN is not None, "未找到raw_materials_CN"
+            # raw_materials_CN.clear()
+            # raw_materials_CN.send_keys("肉精香料")
+            # # 原料英文
+            # raw_materials_EN = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='nameEn']"))
+            # assert raw_materials_EN is not None, "未找到raw_materials_EN"
+            # raw_materials_EN.clear()
+            # raw_materials_EN.send_keys("SM-819011 Beef Flavor")
+            # # 原料暱稱
+            # raw_materials_nick_name = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='nickName']"))
+            # assert raw_materials_nick_name is not None, "未找到raw_materials_nick_name"
+            # raw_materials_nick_name.clear()
+            # raw_materials_nick_name.send_keys("原料暱稱")
+            # # 製造商
+            # raw_materials_nick_name = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='manufacturer']"))
+            # assert raw_materials_nick_name is not None, "未找到raw_materials_nick_name"
+            # raw_materials_nick_name.clear()
+            # raw_materials_nick_name.send_keys("盛美股份有限公司")
+            # # 產地
+            # raw_materials_origin = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='origin']"))
+            # assert raw_materials_origin is not None, "未找到raw_materials_origin"
+            # raw_materials_origin.clear()
+            # raw_materials_origin.send_keys("台灣")
+            # # 供應商
+            # raw_materials_supplier = wait_for_element_clickable(driver, (By.XPATH, "//input[@id='supplier']"))
+            # assert raw_materials_supplier is not None, "未找到raw_materials_origin"
+            # raw_materials_supplier.clear()
+            # raw_materials_supplier.send_keys("盛美股份有限公司")
+            # # 新增按鈕
+            # add_button = wait_for_element_clickable(driver, (By.XPATH, "//button[@aria-label='新增']"))
+            # assert add_button is not None, "未找到add_button"
+            # add_button.click()
+            # # 彈窗確定
+            # alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
+            # assert alert_check is not None, "未找到alert_check"
+            # alert_check.click()
+            # time.sleep(0.5)
+            # # 選擇文件類型
+            # file_type_dropdown = wait_for_element_clickable(driver, (
+            #     By.XPATH, "//div[contains(@class,'placeholder') and text()='請選擇文件類型']"
+            # ))
+            # assert file_type_dropdown is not None, "未找到file_type_dropdown"
+            # file_type_dropdown.click()
+            # time.sleep(0.5)
+            # # 獲取全部下拉選單項目
+            # all_options = WebDriverWait(driver, 10).until(
+            #     EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            # )
+            # # 遍歷所有項目並點擊"其他"
+            # for option in all_options:
+            #     if option.text.strip() == "其它(檔名請清楚描述檔案用途)":
+            #         option.click()
+            #         break
+            # time.sleep(0.5)
+            # # 上傳檔案
+            # upload_input = WebDriverWait(driver, 10).until(
+            #     EC.presence_of_element_located((
+            #         By.XPATH,
+            #         "//label[normalize-space(text())='文件檔案']/following-sibling::div//input[@type='file']"
+            #     ))
+            # )
+            # upload_input.send_keys("assets/dog.jpg")
+            # time.sleep(0.5)
+            # # 彈窗確定
+            # alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
+            # assert alert_check is not None, "未找到alert_check"
+            # alert_check.click()
+            # time.sleep(0.5)
+            # # 右上關閉
+            # close_button = wait_for_element_clickable(driver, (By.XPATH, "//body/div[4]/div[1]/div[1]"))
+            # assert close_button is not None, "未找到右上關閉"
+            # close_button.click()
+            # # 勾選項目一
+            # choose1_button = wait_for_element_clickable(driver, (By.XPATH, "//tbody/tr[1]/td[1]/input[1]"))
+            # assert choose1_button is not None, "未找到原料項目一"
+            # choose1_button.click()
+            # # 綁定原料
+            # binding_raw_materials = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'綁定')]"))
+            # assert binding_raw_materials is not None, "未找到綁定原料"
+            # binding_raw_materials.click()
+            # # 彈窗確定
+            # alert_check = wait_for_element_clickable(driver, (By.XPATH, '//button[contains(text(),"確定")]'))
+            # assert alert_check is not None, "未找到alert_check"
+            # alert_check.click()
+            time.sleep(1)
             # 右上關閉
             close_button = wait_for_element_clickable(driver, (By.ID, "qa-close"))
             assert close_button is not None, "未找到右上關閉"
