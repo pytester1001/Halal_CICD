@@ -540,7 +540,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             # 滾動到可見再點擊
             driver.execute_script("arguments[0].scrollIntoView(true);", file_type_dropdown)
             driver.execute_script("arguments[0].click();", file_type_dropdown)
-            time.sleep(0.5)
+            time.sleep(1)
             # 獲取全部下拉選單項目
             all_options = WebDriverWait(driver, 10).until(
                 EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
