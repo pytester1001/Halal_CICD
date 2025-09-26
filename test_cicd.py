@@ -1352,8 +1352,8 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             processImage.click()
             time.sleep(1)
             # 選擇「產品製程圖」
-            processImage_option = wait_for_element_clickable(driver, (By.XPATH, "//div[text()='產品製程圖.jpg']"))
-            assert processImage_option is not None, "未找到processImage_option 產品製程圖.jpg"
+            processImage_option = wait_for_element_clickable(driver, (By.XPATH, "//div[text()='dog.jpg']"))
+            assert processImage_option is not None, "未找到processImage_option dog.jpg"
             processImage_option.click()
             # 綁定製程圖
             bind_picture = wait_for_element_clickable(driver, (By.XPATH, "//button[contains(text(),'綁定圖片')]"))
