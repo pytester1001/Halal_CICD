@@ -441,8 +441,8 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             processImage.click()
             time.sleep(1)
             # 選擇「產品製程圖」
-            processImage_option = wait_for_element_clickable(driver, (By.XPATH, "//div[text()='產品製程圖.jpg']"))
-            assert processImage_option is not None, "未找到製程圖選項-產品製程圖.jpg"
+            processImage_option = wait_for_element_clickable(driver, (By.XPATH, "//div[text()='dog.jpg']"))
+            assert processImage_option is not None, "未找到製程圖選項-dog.jpg"
             processImage_option.click()
             allure.attach(driver.get_screenshot_as_png(), name="截圖", attachment_type=allure.attachment_type.PNG)
             # 綁定製程圖
@@ -1260,7 +1260,7 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             )
             # 遍歷所有項目並點擊"其他"
             for option in all_options:
-                if option.text.strip() == "其他":
+                if option.text.strip() == "其它(檔名請清楚描述檔案用途)":
                     option.click()
                     break
             time.sleep(0.5)
