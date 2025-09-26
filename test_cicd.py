@@ -11,7 +11,6 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import pytest , time , os , random , allure , re
 from selenium.webdriver import ActionChains
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 # 清真Halal
@@ -38,11 +37,11 @@ def driver():
     options.add_argument("--window-size=1920,1080")
     options.add_argument("--headless=new")  # CI headless 模式
 
-    # 指定 Chromium binary 路徑
+    # 指定系統 Chromium binary
     options.binary_location = "/usr/bin/chromium"
 
-    # 使用 webdriver-manager 自動下載對應版本的 chromedriver
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+    # 使用系統安裝的 chromedriver
+    driver = webdriver.Chrome(service=ChromeService("/usr/bin/chromedriver"), options=options)
 
     yield driver
     driver.quit()

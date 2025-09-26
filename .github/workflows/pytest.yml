@@ -1,9 +1,9 @@
 name: Run Pytest Selenium CI
 
 on:
-  # 手動觸發：當需要執行時，手動執行 CI
+  # 手動觸發
   workflow_dispatch:
-  # 自動觸發：當有 push 時，自動觸發 CI
+  # 自動觸發
   # push:
   #   branches:
   #     - main
@@ -21,16 +21,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-          # 安裝 Chromium 與 headless 依賴
+      - name: Install Chromium and chromedriver
+        run: |
           sudo apt-get update
-          sudo apt-get install -y chromium fonts-liberation libnss3 libxss1 \
-              libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libgbm-dev libasound2-data
-              
+          sudo apt-get install -y chromium chromium-driver fonts-liberation \
+              libnss3 libxss1 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libgbm-dev libasound2-data
+
       - name: Run Pytest
         run: |
           pytest test_cicd.py -v
