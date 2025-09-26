@@ -36,7 +36,10 @@ def driver():
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--window-size=1920,1080")
-    options.add_argument("--headless=new")  # 直接 headless，不需要 xvfb
+    options.add_argument("--headless=new")  # CI headless 模式
+
+    # 指定 Chromium binary 路徑
+    options.binary_location = "/usr/bin/chromium"
 
     # 使用 webdriver-manager 自動下載對應版本的 chromedriver
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)

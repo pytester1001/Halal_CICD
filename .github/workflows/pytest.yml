@@ -25,9 +25,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser fonts-liberation libnss3 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libgbm-dev
 
+          # 安裝 Chromium 與 headless 依賴
+          sudo apt-get update
+          sudo apt-get install -y chromium fonts-liberation libnss3 libxss1 \
+              libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 libgbm-dev libasound2-data
+              
       - name: Run Pytest
         run: |
           pytest test_cicd.py -v
