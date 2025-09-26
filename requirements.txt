@@ -2,3 +2,4 @@
 selenium==4.19.0
 pytest
 allure-pytest
+webdriver-manager==4.0.1

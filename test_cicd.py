@@ -11,6 +11,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 import pytest , time , os , random , allure , re
 from selenium.webdriver import ActionChains
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 # 清真Halal
@@ -28,37 +29,24 @@ from selenium.webdriver import ActionChains
 
 
 # 設置 Browser 環境
-@pytest.fixture
-def driver(scope="function"):
+@pytest.fixture(scope="function")
+def driver():
+    options = webdriver.ChromeOptions()
+    # 不要加 headless，因為我們 workflow 用 xvfb 模擬 GUI
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
 
-    # 設置遠端Selenium Server環境
-    driver = webdriver.Remote(
-    command_executor="http://localhost:4444/wd/hub",
-    options=webdriver.ChromeOptions()
-    )
-    
-    # 設置 Chrome 環境
-    # options = ChromeOptions()
-    # service = ChromeService("/usr/local/bin/chromedriver")
-    # driver = webdriver.Chrome(service=service, options=options)
+    # 如果你 repo 有安裝 webdriver-manager，可以這樣：
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
-    # 設置 Firefox 環境
-    # options = FirefoxOptions()
-    # options.binary_location = "/Applications/Firefox.app/Contents/MacOS/firefox"
-    # service = FirefoxService("/usr/local/bin/geckodriver")
-    # driver = webdriver.Firefox(service=service, options=options)
-
-    # 設置 Safari 環境
-    # driver = webdriver.Safari()
-    # driver.set_window_rect(0, 0, 1200, 800)
-
-    # 無頭測試
-    # options.add_argument("--headless")
-    # options.add_argument("--disable-gpu")
-    # options.add_argument("--window-size=1920,1080")
+    # 如果你不想用 webdriver-manager，而是靠系統安裝的 chromedriver，就用這樣：
+    # driver = webdriver.Chrome(options=options)
 
     yield driver
     driver.quit()
+
 
 # 設置元素等待條件
 def wait_for_element_clickable(driver, locator, timeout=10, screenshot_name="screenshot"):
