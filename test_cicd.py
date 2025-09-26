@@ -28,34 +28,20 @@ from selenium.webdriver import ActionChains
 
 
 # 設置 Browser 環境
-@pytest.fixture
-def driver(scope="function"):
+@pytest.fixture(scope="function")
+def driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=2560,1440")  
+    chrome_options.add_argument("--headless=new")         
 
-    # 設置遠端Selenium Server環境
+    # 遠端 Selenium Server
     driver = webdriver.Remote(
-    command_executor="http://localhost:4444/wd/hub",
-    options=webdriver.ChromeOptions()
+        command_executor="http://localhost:4444/wd/hub",
+        options=chrome_options
     )
-    
-    # 設置 Chrome 環境
-    # options = ChromeOptions()
-    # service = ChromeService("/usr/local/bin/chromedriver")
-    # driver = webdriver.Chrome(service=service, options=options)
-
-    # 設置 Firefox 環境
-    # options = FirefoxOptions()
-    # options.binary_location = "/Applications/Firefox.app/Contents/MacOS/firefox"
-    # service = FirefoxService("/usr/local/bin/geckodriver")
-    # driver = webdriver.Firefox(service=service, options=options)
-
-    # 設置 Safari 環境
-    # driver = webdriver.Safari()
-    # driver.set_window_rect(0, 0, 1200, 800)
-
-    # 無頭測試
-    # options.add_argument("--headless")
-    # options.add_argument("--disable-gpu")
-    # options.add_argument("--window-size=1920,1080")
 
     yield driver
     driver.quit()
