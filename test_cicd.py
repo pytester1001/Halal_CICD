@@ -542,13 +542,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(1)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"Halal 證書"
             for option in all_options:
                 if option.text.strip() == "Halal 證書":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 選擇發證單位下拉選單
@@ -666,13 +666,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"問卷"
             for option in all_options:
                 if option.text.strip() == "問卷":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 上傳檔案
@@ -765,13 +765,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"COA"
             for option in all_options:
                 if option.text.strip() == "COA":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 上傳檔案
@@ -863,13 +863,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"MSDS/SDS"
             for option in all_options:
                 if option.text.strip() == "MSDS/SDS":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 上傳檔案
@@ -962,13 +962,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
-            # 遍歷所有項目並點擊"聲明聲"
+            # 遍歷所有項目並點擊"聲明書"
             for option in all_options:
                 if option.text.strip() == "聲明書":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 上傳檔案
@@ -1060,13 +1060,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"進口報單"
             for option in all_options:
                 if option.text.strip() == "進口報單":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 上傳檔案
@@ -1159,13 +1159,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"輸入許可證"
             for option in all_options:
                 if option.text.strip() == "輸入許可證":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 上傳檔案
@@ -1382,13 +1382,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"Halal 證書"
             for option in all_options:
                 if option.text.strip() == "Halal 證書":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 選擇發證單位下拉選單
@@ -1506,13 +1506,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"問卷"
             for option in all_options:
                 if option.text.strip() == "問卷":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 上傳檔案
@@ -1660,13 +1660,13 @@ def test_add_new_case_successfully(driver,login_manufactor,order_id):
             driver.execute_script("arguments[0].click();", file_type_dropdown)
             time.sleep(0.5)
             # 獲取全部下拉選單項目
-            all_options = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
+            all_options = WebDriverWait(driver, 15).until(
+                EC.visibility_of_all_elements_located((By.XPATH, "//div[contains(@class,'-option')]"))
             )
             # 遍歷所有項目並點擊"Halal 證書"
             for option in all_options:
                 if option.text.strip() == "Halal 證書":
-                    option.click()
+                    driver.execute_script("arguments[0].click();", option)
                     break
             time.sleep(0.5)
             # 選擇發證單位下拉選單
